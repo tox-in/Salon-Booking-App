@@ -1,4 +1,4 @@
-package com.tony.user.service;
+package com.tony;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.tony.user.service;
+package com.tony;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
