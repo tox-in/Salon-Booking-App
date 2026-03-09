@@ -1,10 +1,13 @@
 package com.tony.service.impl;
 
+import com.tony.dto.UserDTO;
+import com.tony.mapper.UserMapper;
 import com.tony.model.User;
 import com.tony.repository.UserRepository;
 import com.tony.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,17 +20,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User createUser(User user) {
+    public User createUser(UserDTO dto) {
+        User user = UserMapper.toEntity(dto);
         return userRepository.save(user);
     }
 
     @Override
     public User getUserById(Long id) throws Exception {
-        Optional<User> otp = userRepository.findById(id);
-        if(otp.isPresent()){
-            return otp.get();
-        }
-        throw new Exception("User not found");
+        return userRepository.findById(id).orElseThrow(() -> new Exception("User not found with id: "+id));
     }
 
     @Override
@@ -37,27 +37,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) throws Exception {
-        Optional<User> otp = userRepository.findById(id);
-        if(otp.isEmpty()){
-            throw new Exception("User not found");
-        }
+        User user = userRepository.findById(id).orElseThrow(() -> new Exception("User not found:" +id));
 
-        userRepository.deleteById(otp.get().getId());
+        userRepository.delete(user);
     }
 
     @Override
-    public User updateUser(Long id, User user) throws Exception {
+    @Transactional
+    public User updateUser(Long id, UserDTO dto) throws Exception {
 
-        Optional<User> otp = userRepository.findById(id);
-        if(otp.isEmpty()){
-            throw new Exception("User not found with id:"+ id);
-        }
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new Exception("User not registered with id:"+ id));
 
-        User existingUser = otp.get();
-        existingUser.setFullName(user.getFullName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setRole(user.getRole());
-        existingUser.setUpdatedAt(LocalDateTime.now());
+        UserMapper.updateEntity(existingUser, dto);
 
         return userRepository.save(existingUser);
     }
