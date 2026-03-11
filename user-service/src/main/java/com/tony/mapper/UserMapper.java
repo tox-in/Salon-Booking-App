@@ -1,6 +1,7 @@
 package com.tony.mapper;
 
 import com.tony.dto.UserDTO;
+import com.tony.dto.UserUpdateDTO;
 import com.tony.model.User;
 
 public class UserMapper {
@@ -17,10 +18,11 @@ public class UserMapper {
         return user;
     }
 
-    public static void updateEntity(User user, UserDTO dto) {
+    public static void updateEntity(User user, UserUpdateDTO dto) {
         user.setFullName(dto.getFullName());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setRole(dto.getRole());
+        user.setPhone(dto.getPhone());
     }
 }

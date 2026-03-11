@@ -1,6 +1,7 @@
 package com.tony.service.impl;
 
 import com.tony.dto.UserDTO;
+import com.tony.dto.UserUpdateDTO;
 import com.tony.mapper.UserMapper;
 import com.tony.model.User;
 import com.tony.repository.UserRepository;
@@ -44,9 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User updateUser(Long id, UserDTO dto) throws Exception {
+    public User updateUser(Long id, UserUpdateDTO dto) throws Exception {
 
         User existingUser = userRepository.findById(id).orElseThrow(() -> new Exception("User not registered with id:"+ id));
+
+        if (!existingUser.getEmail().equals(dto.getEmail()) &&
+                userRepository.existsByEmail(dto.getEmail())) {
+            throw new Exception("Email already in use");
+        }
 
         UserMapper.updateEntity(existingUser, dto);
 

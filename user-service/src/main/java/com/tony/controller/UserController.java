@@ -1,6 +1,7 @@
 package com.tony.controller;
 
 import com.tony.dto.UserDTO;
+import com.tony.dto.UserUpdateDTO;
 import com.tony.model.User;
 import com.tony.repository.UserRepository;
 import com.tony.service.UserService;
@@ -41,7 +42,7 @@ public class UserController{
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser (@Valid @RequestBody UserDTO dto, @PathVariable("userId") Long id) throws Exception {
+    public ResponseEntity<User> updateUser (@Valid @RequestBody UserUpdateDTO dto, @PathVariable("userId") Long id) throws Exception {
         User updatedUser = userService.updateUser(id, dto);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
