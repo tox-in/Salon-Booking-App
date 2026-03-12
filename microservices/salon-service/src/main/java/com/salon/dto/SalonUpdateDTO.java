@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -30,8 +31,8 @@ public class SalonUpdateDTO {
     private String city;
 
     @NotBlank(message = "Opening hour required")
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @NotBlank(message = "Closing hour required")
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 }
