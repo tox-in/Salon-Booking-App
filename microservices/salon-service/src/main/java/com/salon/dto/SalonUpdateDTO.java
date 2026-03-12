@@ -2,10 +2,14 @@ package com.salon.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
 public class SalonUpdateDTO {
     @NotBlank(message = "Salon Name required")
     private String name;
