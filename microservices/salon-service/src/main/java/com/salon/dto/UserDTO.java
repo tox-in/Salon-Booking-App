@@ -3,8 +3,8 @@ package com.salon.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class UserDTO {
     private Long id;
     private String fullName;

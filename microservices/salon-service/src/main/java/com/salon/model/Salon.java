@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -39,8 +42,8 @@ public class Salon {
     private Long ownerId;
 
     @Column(nullable = false)
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @Column(nullable = false)
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 }
